@@ -118,8 +118,8 @@ class Model  {
         return nil
     }
     
-    public static func getSubscribeEventObject(channelName : String, messageId : Int) -> EmitEvent{
-        return EmitEvent(event: "#subscribe", data: Channel(channel: channelName, data :nil) as AnyObject, cid: messageId)
+    public static func getSubscribeEventObject(channelName : String, messageId : Int, data : AnyObject? = nil) -> EmitEvent{
+        return EmitEvent(event: "#subscribe", data: Channel(channel: channelName, data :data) as AnyObject, cid: messageId)
     }
     
     public static func getSubscribeEventObject(channelName : String, messageId : Int, token: String? = nil) -> EmitEvent{

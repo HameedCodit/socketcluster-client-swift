@@ -6,7 +6,7 @@ public class ScClient : Listener, WebSocketDelegate {
     
     var authToken : String?
     var url : String?
-    var socket : WebSocket
+    public var socket : WebSocket
     var counter : AtomicInteger
     
     var onConnect : ((ScClient)-> Void)?
@@ -143,6 +143,11 @@ public class ScClient : Listener, WebSocketDelegate {
     
     public func subscribe(channelName : String, token : String? = nil) {
         let subscribeObject = Model.getSubscribeEventObject(channelName: channelName, messageId: counter.incrementAndGet(), token : token)
+        self.socket.write(string : subscribeObject.toJSONString()!)
+    }
+    
+    public func subscribe(channelName : String,data : AnyObject? = nil) {
+        var subscribeObject = Model.getSubscribeEventObject(channelName: channelName, messageId: counter.incrementAndGet(),data: data)
         self.socket.write(string : subscribeObject.toJSONString()!)
     }
     
